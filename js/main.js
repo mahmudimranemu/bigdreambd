@@ -178,16 +178,12 @@
 
   }
 
-  /* ---------- Quote form: send by email (contact.php) or WhatsApp ---------- */
+  /* ---------- Quote form: send via Gmail or WhatsApp ---------- */
   var form = document.getElementById('quote-form');
   var errorBox = document.getElementById('form-error');
-  var success = document.getElementById('form-success');
 
   if (form) {
     var fields = form.elements;
-    var sendBtn = document.getElementById('send-email');
-    var started = document.getElementById('f-started');
-    started.value = Date.now();
 
     function value(name) { return fields.namedItem(name).value.trim(); }
 
@@ -234,59 +230,22 @@
       return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(messageText());
     }
 
-    function setBusy(busy) {
-      sendBtn.disabled = busy;
-      sendBtn.setAttribute('aria-busy', String(busy));
-      sendBtn.textContent = busy ? 'Sending…' : 'Send enquiry';
-    }
-
-    function sendFailed(message) {
-      var mailto = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Quote request — ' + value('name')) +
+    // Gmail web compose, pre-filled with our address, subject and the enquiry
+    function gmailUrl() {
+      return 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(EMAIL) +
+        '&su=' + encodeURIComponent('Quote request — ' + value('name')) +
         '&body=' + encodeURIComponent(messageText());
-      showError(
-        (message || 'Your enquiry could not be sent.') +
-        ' You can <a href="' + whatsappUrl() + '" target="_blank" rel="noopener">send it on WhatsApp</a>' +
-        ' or <a href="' + mailto + '">by email</a> instead.'
-      );
     }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (!validate()) return;
-      setBusy(true);
-
-      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .then(function (res) {
-          return res.json().catch(function () { return { ok: false }; });
-        })
-        .then(function (result) {
-          setBusy(false);
-          if (!result.ok) {
-            sendFailed(result.message);
-            return;
-          }
-          document.getElementById('form-success-text').textContent = result.message;
-          form.hidden = true;
-          success.hidden = false;
-          success.focus();
-        })
-        .catch(function () {
-          setBusy(false);
-          sendFailed('Your enquiry could not be sent. Check your connection.');
-        });
+      window.open(gmailUrl(), '_blank', 'noopener');
     });
 
     document.getElementById('send-whatsapp').addEventListener('click', function () {
       if (!validate()) return;
       window.open(whatsappUrl(), '_blank', 'noopener');
-    });
-
-    document.getElementById('form-again').addEventListener('click', function () {
-      form.reset();
-      started.value = Date.now();
-      success.hidden = true;
-      form.hidden = false;
-      fields.namedItem('name').focus();
     });
 
     form.addEventListener('input', function (e) {

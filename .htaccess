@@ -1,5 +1,5 @@
-# Keep the mail settings and notes private
-<FilesMatch "^(mail-config\.php|README\.md)$">
+# Keep the notes private
+<FilesMatch "^README\.md$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

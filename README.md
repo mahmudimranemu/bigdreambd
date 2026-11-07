@@ -6,9 +6,7 @@ A static one-page website built with plain HTML, CSS and JavaScript. It needs no
 index.html        page content
 css/style.css     all styles
 js/main.js        menu, world map, logo fallbacks, client marquee, quote form
-contact.php       emails quote-form enquiries (needs PHP — Hostinger has it)
-mail-config.php   email settings: who receives enquiries, mailbox password
-.htaccess         keeps mail-config.php private, forces https
+.htaccess         hides README.md, forces https (Apache hosts only)
 assets/logo/      company logo
 assets/brands/    mill / brand logos
 assets/clients/   client logos
@@ -78,7 +76,7 @@ Until a logo file exists, the site shows the name as styled text, so nothing loo
 
 ## Things to confirm before going live
 
-1. **Email address.** The site shows `info@bigdreambd.com` as the public contact address. If you use a different one, find-and-replace every occurrence in `index.html` (including the JSON-LD block in the `<head>`), in `EMAIL` at the top of `js/main.js`, and in `mail-config.php`.
+1. **Email address.** The site shows `info@bigdreambd.com` as the public contact address. If you use a different one, find-and-replace every occurrence in `index.html` (including the JSON-LD block in the `<head>`), and in `EMAIL` at the top of `js/main.js` (that's where the Gmail button sends to).
 2. **Stats strip** (11+ mill brands, 15 categories, 26+ clients, 2 ways to buy). These numbers are counted from the brochure. Edit them in the `stats` section of `index.html` if you'd rather show other figures (years in business, tonnes per year, etc.).
 3. **FSC certification.** The site does not claim it. If Big Dream is certified, add it to the "Why buyers choose Big Dream" section along with the certificate code.
 4. **Source countries** on the hero map and in the About text are inferred from where the listed mills are based (Italy, Germany, South Africa, Korea, China, Indonesia, India). Edit `SOURCES` in `js/main.js` and the About paragraph if they differ.
@@ -90,21 +88,8 @@ Until a logo file exists, the site shows the name as styled text, so nothing loo
 - **Add a client or brand:** copy one `<li>` in the relevant list and add the logo file.
 - **Colours and fonts:** defined at the top of `css/style.css` (`--magenta`, `--slate`, etc.).
 
-## Setting up the quote form email (do this once on Hostinger)
+## How the quote form works
 
-1. In hPanel → **Emails**, create a mailbox on your domain, e.g. `info@bigdreambd.com`.
-2. In **File Manager**, open `public_html/mail-config.php` and edit:
-   - `'to'`: the inbox(es) that should receive enquiries (can be Gmail, or several).
-   - `'from'` and `'smtp_user'`: the mailbox you created in step 1.
-   - `'smtp_pass'`: that mailbox's password.
-3. Save, open the website, and send a test enquiry. You should see "Enquiry sent" and receive the email within a minute.
+There is no server code. **Send via Gmail** opens Gmail's compose window in a new tab, addressed to `EMAIL` (top of `js/main.js`), with the subject and the visitor's enquiry filled in. The visitor presses Send in Gmail. Visitors who aren't signed in to Gmail are asked to sign in first.
 
-If `smtp_pass` is left empty, the form still sends, using PHP's built-in mail, but those emails are more likely to land in spam.
-
-When a customer fills in their email, just press **Reply** to answer them. If they only gave a phone number, the email says so.
-
-Spam protection: a hidden bot trap, a minimum time to fill in the form, and a limit of 5 enquiries per hour per visitor (change it in `mail-config.php`).
-
-If sending ever fails, the visitor is offered WhatsApp or their email app instead, so no enquiry is lost. Hostinger logs the reason under hPanel → **Advanced → Error logs** (search for "Big Dream quote form").
-
-The **Send on WhatsApp instead** button opens WhatsApp with the same message to +880 1686-223735.
+**Send on WhatsApp instead** opens WhatsApp with the same message to +880 1686-223735.

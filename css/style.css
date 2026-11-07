@@ -570,22 +570,6 @@ p { margin: 0 0 1em; }
 .form-note { margin: 0; font-size: 0.85rem; color: var(--slate); }
 .form-error a { color: inherit; }
 
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-
-.btn[aria-busy="true"] { opacity: 0.7; cursor: progress; }
-
-.form-success {
-  background: var(--white);
-  padding: clamp(2rem, 5vw, 3rem);
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  border-top: 6px solid #2E9E5B;
-}
-.form-success:focus { outline: none; }
-.form-success svg { width: 52px; height: 52px; color: #2E9E5B; margin-bottom: 1rem; }
-.form-success h3 { font-size: 1.5rem; }
-.form-success p { color: #3A4148; max-width: 42ch; margin-bottom: 1.5rem; }
-
 /* ---------- Footer ---------- */
 
 .site-footer { background: #23272C; color: #B9C0C5; font-size: 0.95rem; }

@@ -256,7 +256,7 @@
           </div>
         </div>
 
-        <form class="quote-form" id="quote-form" action="contact.php" method="post" novalidate>
+        <form class="quote-form" id="quote-form" novalidate>
           <div class="field">
             <label for="f-name">Your name</label>
             <input id="f-name" name="name" type="text" autocomplete="name" required>
@@ -304,24 +304,12 @@
             <textarea id="f-msg" name="message" rows="4" placeholder="GSM, size, sheet or reel, delivery date…"></textarea>
           </div>
           <p class="form-error" id="form-error" role="alert" hidden></p>
-          <!-- spam traps: hidden from people, filled in by bots -->
-          <div class="hp" aria-hidden="true">
-            <label for="f-website">Leave this empty</label>
-            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
-          </div>
-          <input type="hidden" name="started" id="f-started">
           <div class="form-actions field-full">
-            <button type="submit" class="btn btn-primary" id="send-email">Send enquiry</button>
+            <button type="submit" class="btn btn-primary" id="send-email">Send via Gmail</button>
             <button type="button" class="btn btn-ghost" id="send-whatsapp">Send on WhatsApp instead</button>
           </div>
-          <p class="form-note field-full">Your enquiry goes straight to our sales team. We only use your details to reply to you.</p>
+          <p class="form-note field-full">Opens Gmail with your enquiry ready to send to our sales team. We only use your details to reply to you.</p>
         </form>
-        <div class="form-success" id="form-success" tabindex="-1" hidden>
-          <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 25l7 7 13-15" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <h3>Enquiry sent</h3>
-          <p id="form-success-text">Thanks. We will reply within one working day.</p>
-          <button type="button" class="btn btn-ghost" id="form-again">Send another enquiry</button>
-        </div>
       </div>
     </section>
   </main>
